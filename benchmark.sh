@@ -4,12 +4,12 @@ set -euo pipefail
 ########################################
 # Environment setup
 ########################################
-export RESULTS_FILE="n_6k"
-export LAMP_N=6000
 export RHS=200
-export LAMP_L3_CACHE_SIZE="${LAMP_L3_CACHE_SIZE:-7500000}"
-export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
-export LAMP_REPS="${LAMP_REPS:-10}"
+export RESULTS_FILE="tester5"
+export LAMP_N=200
+export LAMP_L3_CACHE_SIZE=7500000
+export OMP_NUM_THREADS=1
+export LAMP_REPS=1
 
 echo "Running all tests..."
 echo "RESULTS_FILE=$RESULTS_FILE"
@@ -22,6 +22,21 @@ OUTPUT_DIR="results"
 mkdir -p "$OUTPUT_DIR"
 
 start_time=$(date +%s.%N)
+
+echo "========================================"
+echo "Running Julia benchmark..."
+echo "========================================"
+
+if command -v julia &> /dev/null; then
+  julia julia/main.jl || { echo "Julia benchmark failed"; exit 1; }
+else
+  echo "  Julia not found in PATH — skipping Julia benchmark."
+fi
+
+
+end_time=$(date +%s.%N)
+elapsed=$(echo "$end_time - $start_time" | bc)
+echo "Total time: ${elapsed}s"
 
 TESTS=(
   "c/bin/diagmm.x                       $LAMP_N"
@@ -60,15 +75,3 @@ else
   echo "  C++ executable cpp/armadillo/bnch_armadillo not found or not executable"
 fi
 
-echo "========================================"
-echo "Running Julia benchmark..."
-echo "========================================"
-
-if command -v julia &> /dev/null; then
-  julia julia/main.jl || { echo "Julia benchmark failed"; exit 1; }
-else
-  echo "  Julia not found in PATH — skipping Julia benchmark."
-fi
-end_time=$(date +%s.%N)
-elapsed=$(echo "$end_time - $start_time" | bc)
-echo "Total time: ${elapsed}s"
