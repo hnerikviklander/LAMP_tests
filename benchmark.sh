@@ -20,9 +20,6 @@ echo
 
 OUTPUT_DIR="results"
 mkdir -p "$OUTPUT_DIR"
-########################################
-# C tests (explicit list)
-########################################
 
 start_time=$(date +%s.%N)
 
@@ -45,7 +42,6 @@ TESTS=(
   "c/bin/syrk_noup.x                     $LAMP_N $LAMP_N"
   "c/bin/transposition.x                 $LAMP_N $LAMP_N $LAMP_N"
   "c/bin/trmm.x                          $LAMP_N $LAMP_N"
-  # Add more C tests here...
 )
 
 for CMD in "${TESTS[@]}"; do
@@ -54,9 +50,6 @@ for CMD in "${TESTS[@]}"; do
   eval "$CMD" || { echo "Test failed: $CMD"; exit 1; }
 done
 
-########################################
-# Run the C++ benchmark (after all C tests)
-########################################
 echo "========================================"
 echo "Running C++ Armadillo benchmark..."
 echo "========================================"
@@ -76,7 +69,6 @@ if command -v julia &> /dev/null; then
 else
   echo "  Julia not found in PATH — skipping Julia benchmark."
 fi
-
 end_time=$(date +%s.%N)
 elapsed=$(echo "$end_time - $start_time" | bc)
 echo "Total time: ${elapsed}s"

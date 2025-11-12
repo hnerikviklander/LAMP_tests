@@ -45,3 +45,5 @@ srun --cpu-bind=cores ./c/bin/trmm.x                          $LAMP_N $LAMP_N
 
 
 srun --cpu-bind=cores ./cpp/armadillo/bench_armadillo 
+
+srun --cpu-bind=cores julia julia/main.jl
