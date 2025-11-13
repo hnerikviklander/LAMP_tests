@@ -22,6 +22,11 @@ int main(int argc, char* argv[])
     n = atof(argv[3]);
   }
 
+  // check that intel MKL is linked
+  char version[198];
+  MKL_Get_Version_String(version, 198);
+  printf("BLAS backend: %s", version);
+
   A = (double*)mkl_malloc(m * k * sizeof(double), 64);
   B = (double*)mkl_malloc(k * n * sizeof(double), 64);
   C = (double*)mkl_malloc(m * n * sizeof(double), 64);

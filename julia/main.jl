@@ -3,6 +3,8 @@ using MKL
 using Logging
 using Test
 
+println(BLAS.get_config())
+
 LinearAlgebra.BLAS.set_num_threads(parse(Int, ENV["OMP_NUM_THREADS"]))
 
 include("benchmarker/Benchmarker.jl")

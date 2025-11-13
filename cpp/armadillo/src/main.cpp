@@ -3,6 +3,7 @@
 #include <charconv> 
 #include <cstdlib>
 #include <filesystem>
+#include <mkl.h>
 
 #include "../include/benchmarks.h"
 
@@ -45,6 +46,12 @@ int main(int argc, char* argv[])
 
   std::cout << "Output file: " << file_name << "\n";
   std::cout << "Timing file: " << file_timings_name << "\n";
+
+
+  // check that intel MKL is linked
+  char version[198];
+  MKL_Get_Version_String(version, 198);
+  std::cout << "BLAS backend: " << version << "\n";
 
   Benchmarker b(name, file_name, file_timings_name, cache_size, reps, ';');
 
