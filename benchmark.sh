@@ -81,6 +81,7 @@ fi
 end_time_armadillo=$(date +%s.%N)
 
 end_time=$(date +%s.%N)
+elapsed=$(echo "$end_time - $start_time" | bc)
 elapsed_julia=$(echo "$end_time_julia - $start_time_julia" | bc)
 elapsed_c=$(echo "$end_time_c - $start_time_c" | bc)
 elapsed_armadillo=$(echo "$end_time_armadillo - $start_time_armadillo" | bc)
