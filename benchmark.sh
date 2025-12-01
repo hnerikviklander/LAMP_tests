@@ -8,7 +8,7 @@ export RHS=200
 export RESULTS_FILE="3k"
 export LAMP_N=3000
 ##export LAMP_L3_CACHE_SIZE=18874368 ## Size of amd ryzen 7 9800 X3D L3 * 1.5
-export LAMP_L3_CACHE_SIZE=7500000
+export LAMP_L3_CACHE_SIZE=18874368
 export OMP_NUM_THREADS=1
 export LAMP_REPS=10
 
